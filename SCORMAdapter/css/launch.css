@@ -1,0 +1,277 @@
+/*!
+ * SCORM Adapter - Styles v1.0.7268.25341
+ * 2018 Copyright - Pelesys Learning Systems Inc. - All Rights Reserved 
+ */
+body, html {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #838383;
+}
+
+html {
+    /*Additionally added for 300ms delay fix.*/
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#contentContainer {
+    width: 100%;
+    height: 100%;
+}
+
+#contentFrame {
+    width: 100vw; /* fixes width on mobile safari for iframes */
+    min-width: 100%;
+    height: 100%;
+    border: none;
+    display: block; /* fix space bug below iframe */
+}
+
+body.debug #contentFrame {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 70vw;
+    min-width: 70%;
+    height: 100%;
+    border: none;
+    display: block; /* fix space bug below iframe */
+}
+
+#toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    background-image: url("../images/ui_topbar.png");
+    background-repeat: repeat-x;
+    z-index: 201;
+}
+
+#toolbarlogo {
+    position: fixed;
+    display: block;
+    top: 6px;
+    left: 20px;
+}
+
+#overlayBtn {
+    position: absolute;
+    top: 5px;
+    width: 74px;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    background-color: rgba(204, 204, 204, .8);
+    left: calc(50% - 40px);
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 11px;
+    text-align: center;
+    font-size: 10px;
+    color: #fff;
+    cursor: pointer;
+}
+
+#overlayBtnIcon {
+    display: inline-block;
+    height: 12px;
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-top: -1px;
+}
+
+#toolbarButtons {
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 20px;
+}
+
+.subBtn {
+    display: inline-block;
+    vertical-align: middle;
+    color: #fff;
+    text-align: center;
+    padding: 0 10px;
+    background-color: #b2b2b2;
+    border: 1px solid #000000;
+    box-shadow: inset 1px 1px 1px rgba(255, 255, 255, .4), inset -1px -1px 1px rgba(0, 0, 0, .4);
+    height: 36px;
+    line-height: 36px;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+#contentoverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0, .8);
+    z-index: 200;
+}
+
+#savingoverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 201;
+    display: none;
+}
+
+#savingMessage {
+    position: fixed;
+    width: 400px;
+    top: calc(50% - 50px);
+    left: calc(50% - 200px);
+    border-radius: 10px;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    display: none;
+}
+
+#debugContainer {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 30%;
+    padding: 3px;
+    overflow-y: scroll;
+    background-color: #fff;
+    color: #333;
+    border-right: 2px solid #333;
+    z-index: 100;
+}
+
+#debugContainer .sco {
+    font-size: 10px;
+    margin-bottom: 10px;
+}
+
+#debugContainer .sco.error {
+    color: red;
+}
+
+#debugContainer .sco.warn {
+    color: orange;
+}
+
+#debugContainer .sco.info {
+    color: blue;
+}
+
+body.debug #debugContainer {
+    display: block;
+}
+
+/*****************************************************************************/
+/*Bootstrap Customizatons and overrides*/
+
+.mobile #controlbarTop,
+.mobile #controlbarBtm {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.modal-footer button {
+    float: right;
+    margin-left: 9px;
+}
+
+.glyphicon-close:before {
+    content: "\e60b";
+}
+
+.close {
+    font-size: 34px;
+}
+
+/*****************************************************************************/
+/*Bootstrap layout*/
+
+.modal-content {
+    border-radius: 0;
+    background-color: #fff;
+}
+
+.modal-body {
+    background-color: #fff;
+}
+
+.modal-footer button {
+    float: right;
+    margin-left: 9px;
+}
+
+.modal-body-tall {
+    max-height: calc(100vh - 125px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.mobile .modal-body-tall {
+    max-height: calc(100vh - 165px);
+}
+
+.modal-wide .modal-dialog {
+    width: calc(100% - 50px);
+    height: calc(100vh - 60px);
+}
+
+/*****************************************************************************/
+/*Bootstrap Customizatons and overrides*/
+
+.btn {
+    border-radius: 0;
+}
+
+.btn-primary {
+    background-color: #005eb8;
+    border-color: #005eb8;
+}
+
+.btn-primary:hover {
+    background-color: #0664be;
+    border-color: #0664be;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+    background-color: #0052ac;
+    border-color: #0052ac;
+}
+
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+    background-color: #0052ac;
+    border-color: #0052ac;
+}

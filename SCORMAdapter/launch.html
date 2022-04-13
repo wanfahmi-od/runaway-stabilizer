@@ -1,0 +1,91 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0">
+    <link href="lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="css/launch.css" rel="stylesheet" />
+    <script type="text/javascript" src="lib/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="lib/moment/moment.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/bootbox.min.js"></script>
+    <script type="text/javascript" src="js/Utilities.js"></script>
+    <script type="text/javascript" src="js/models/LearningSessionModel.js"></script>
+    <script type="text/javascript" src="js/RuntimeController.js"></script>
+    <script type="text/javascript" src="js/scorm/SCO_APIBase.js"></script>
+    <script type="text/javascript" src="js/scorm/SCO_API.js"></script>
+    <script type="text/javascript" src="js/scorm/SCO_API_1484_11.js"></script>
+    <script type="text/javascript" src="js/scorm/APIRuntimeBase.js"></script>
+    <script type="text/javascript" src="js/scorm/SCORM2004Runtime.js"></script>
+    <script type="text/javascript" src="js/scorm/SCORM12Runtime.js"></script>
+    <script>
+        //CPD injected options.
+        //sample options data
+        //var options = {
+        //    src: "_testcontent/scorm2004/Loadmaster Refresher 2004/index_lms_html5.html",
+        //    crewpad: "2050",
+        //    learningSessionData: {
+        //        learningSessionId: "1",
+        //        AICC_SID: "AU1",
+        //        lessonType: "Lesson",
+        //        courseType: "enrolled",
+        //        standard: "SCORM2004",//AICC, SCORM, SCORM2004                
+        //        lessonId: "264",
+        //        packageId: "95",
+        //        learnerId: "1119",
+        //        learnerName: "",
+        //        lessonLocation: "",
+        //        lessonStatus: "Not Attempted", // assigned to cmi.completion_status or cmi.success_status
+        //        rawScore: "0",
+        //        totalTime: "00:00:00",
+        //        credit: "credit",
+        //        lessonMode: "normal",
+        //        launchData: "cpd_debug=true",
+        //        suspendData: "",
+        //        masteryScore: "100",
+        //        maxTimeAllowed: "02:30:00",
+        //        timeLimitAction: ""
+        //    },
+        //    onTerminated: function (dataModel) {
+        //        // Execute injected CrewPad code.
+        //        runtimeController.HideContentUI();
+        //    }
+        //};
+
+        var runtimeController;
+
+        $(document).ready(function () {
+            options = options || {};
+            //create the runtime
+            runtimeController = new RuntimeController(options);
+            runtimeController.Init();
+        });
+
+    </script>
+</head>
+<body>
+    <div id="contentContainer">
+        <iframe id="contentFrame" scrolling=no src=""></iframe>
+        <div id="contentoverlay" style="display: none;"></div>
+        <div id="toolbar" style="display: none;">
+            <img id="toolbarlogo" src="images/ui_crewpad_logo.png" />
+            <span id="toolbarButtons"><button id="forceQuitBtn" class="subBtn" type="button">Force Quit...</button><button id="hideToolbarBtn" class="subBtn" type="button">Hide Toolbar</button></span>
+        </div>
+        <div id="overlayBtn">
+            <img id="overlayBtnIcon" src="images/ui_crewpad_icon.png" /><span>Toolbar...</span>
+        </div>
+    </div>
+    <div id="savingoverlay">
+        <div id="savingMessage">
+            <strong>Saving learning progress</strong><br /><br />
+            Don't go away. This may take a couple seconds.
+        </div>
+    </div>
+    <div id="debugContainer"></div>
+</body>
+</html>

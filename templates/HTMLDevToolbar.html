@@ -1,0 +1,28 @@
+﻿<div class="devToolbar small">
+    <div class="inner">
+        <div class="container-fluid form-inline">
+            <span class="btn-group">
+                <span class="btn btn-sm btn-default" data-bind="click: player._DevToggleFastAdvance">Fast Adv. <span class="glyphicon" data-bind="css: { 'glyphicon-check': player.config.fastAdvance, 'glyphicon-unchecked': !player.config.fastAdvance() }"></span></span>
+                <span class="btn btn-sm btn-default" data-bind="text: player.config._playSpeed() + 'X', click: player._DevTogglePlaySpeed"></span>
+                <span class="btn btn-sm btn-default" data-bind="click: player._DevToggleAutoPlay">Autoplay <span class="glyphicon" data-bind="css: { 'glyphicon-check': player.config._autoPlay, 'glyphicon-unchecked': !player.config._autoPlay() }"></span></span>
+            </span>
+            <div class="dropdown" style="display: inline-block;">
+                <span class="btn btn-sm btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    More <span class="caret"></span>
+                </span>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#" data-bind="click: player.ShowDeveloperReport"><span class="glyphicon glyphicon-file"></span> Developer Report</a></li>
+                    <!-- ko if: player.lmsAPIController.type === 'local' -->
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Local Storage</li>
+                    <li><a href="#" data-bind="click: TestClearLocalStorage"><span class="glyphicon glyphicon-trash"></span> Clear data for this CBT</a></li>
+                    <li><a href="#" data-bind="click: TestClearAllLocalStorage"><span class="glyphicon glyphicon-trash"></span> Clear all data</a></li>
+                    <!-- /ko -->
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#" data-bind="click: player.ShowDeveloperHelp"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+                </ul>
+            </div>
+            <!--<span>idle: <span data-bind="text: player.currentIdleSeconds"></span></span>-->
+        </div>
+    </div>
+</div>

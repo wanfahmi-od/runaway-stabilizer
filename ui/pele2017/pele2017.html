@@ -1,0 +1,208 @@
+<div id="outerContainer">
+    <div id="wrapper" class="cmenu-o-wrapper">
+        <div id="controlbarTop" class="container-fluid" data-bind="css: { 'hasProgress': currentOrg() && isProgressActive() }">
+            <div class="row">
+                <div class="col-xs-11 no-horizontal-space-left" style="height: 50px;">
+                    <button class="navBtn glyphicon glyphicon-menu-hamburger" id="btnCourseNav" data-bind="click: ShowMenu, attr: { 'title': lang().dict.menu }"></button>
+                    <div id="menu" class="cmenu cmenu-slide-left">
+                        <div class="cmenu-close" id="menuClose" data-bind="click: CloseMenu">
+                            <span class="glyphicon glyphicon-chevron-left pull-right"></span>
+                            <span data-bind="text: lang().dict.menu"></span>
+                            <input type="text" class="form-control input-sm" name="search" id="search" data-bind="textInput: currentOrg().itemsFilter, event: { keyup: OnSearchKeyup}, visible: enableDevControls" placeholder="search">
+                        </div>
+                        <div class="cmenu-items" data-bind="if: isCourseMenuItemsVisible">
+                            <!-- ko if: !currentOrg().itemsFilter() -->
+                                <!-- ko template: { name: 'recursiveNavTemplate', data: currentOrg } --><!-- /ko -->
+                            <!-- /ko -->
+                            <!-- ko if: currentOrg().itemsFilter() -->
+                            <div data-bind="foreach: currentOrg().filteredItemsList()">
+                                <div class="cmenu-item" data-bind="attr: {'data-id': id }, click: $root.HandleMenuItemClick, style: $root.GetInlineMenuItemStyle($data), css: $root.GetMenuItemCssClass($data), setFocus: $data">
+                                    <!-- ko template: { name: 'filteredItemTemplate' } --><!-- /ko -->
+                                </div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                        <script type="text/html" id="recursiveNavTemplate">
+                            <div data-bind="foreach: items">
+                                <div class="cmenu-item" data-bind="attr: {'data-id': id }, click: $root.HandleMenuItemClick, style: $root.GetInlineMenuItemStyle($data), css: $root.GetMenuItemCssClass($data), setFocus: $data">
+                                    <!-- ko if: type === 'topic' -->
+                                    <span class="collapse-icon glyphicon" data-bind="css: { 'glyphicon-menu-right': !isItemsVisible(), 'glyphicon-menu-down': isItemsVisible }"></span>
+                                    <!-- /ko -->
+                                    <!-- ko template: { name: 'itemTemplate' } --><!-- /ko -->
+                                </div>
+                                <div class="cmenu-collapse-cnt in" data-bind="if: type === 'topic' && items().length > 0 && isItemsVisible()">
+                                    <!-- ko template: { name: 'recursiveNavTemplate' } --><!-- /ko -->
+                                </div>
+                            </div>
+                        </script>
+                        <script type="text/html" id="itemTemplate">
+                            <span class="icon-status bordered" data-bind="attr: { 'title': $root.GetItemStatusTooltip($data) }, css: $root.GetItemStatusCssClass($data), click: $root._DevCycleStatus"></span>
+                            <span class="item-text">
+                                <span class="text-dev" data-bind="if: $root.enableDevControls">
+                                    <span data-bind="text: $index() + 1"></span> -
+                                    <span data-bind="text: id"></span> -
+                                </span>
+                                <span class="title" data-bind="text: title"></span>
+                            </span>
+                        </script>
+                        <script type="text/html" id="filteredItemTemplate">
+                            <span class="icon-status bordered" data-bind="attr: { 'title': $root.GetItemStatusTooltip($data) }, css: $root.GetItemStatusCssClass($data), click: $root._DevCycleStatus"></span>
+                            <span class="item-text">
+                                <span class="text-dev" data-bind="if: $root.enableDevControls">
+                                    <span data-bind="text: id"></span> -
+                                </span>
+                                <span class="title" data-bind="text: title"></span>
+                            </span>
+                        </script>
+                    </div>
+                    <button class="navBtn glyphicon peleicon icon-progress" id="btnProgress" data-bind="visible: config.buttons.progress, click: ToggleProgress, attr: { 'title': 'Toggle progress' }, css: { 'on': isProgressActive}"></button>
+                    <!--ko if: currentOrg() && isProgressActive()-->
+                    <div id="progressContainer">
+                        <!--ko foreach: currentOrg().topicsList--><div class="progressSegment" data-bind="style: { width: $root.GetProgressSegmentWidth($data) + 'px' }, attr: { 'pele-id' : id }"><div class="progressSegmentInner"><div class="progressSegmentCompleted" data-bind="style: { width: $root.GetProgressSegmentCompletedWidth($data) + 'px'}"></div><div class="progressSegmentIncomplete" data-bind="style: { width: $root.GetProgressSegmentIncompletedWidth($data) + 'px'}"></div></div></div><div class="progressTopic">
+                            <span class="icon-status" data-bind="attr: { 'title': title }, css: $root.GetItemStatusCssClass($data)"></span>
+                        </div><!-- /ko -->
+                        <!--ko if: $root.GetCurrentPage() -->
+                        <div id="progressMarker" data-bind="attr: { 'title': GetCurrentPage().title }, style: { left: $root.GetProgressMarkerPosition(GetCurrentPage()) }"></div>
+                        <!-- /ko -->
+                    </div>
+                    <!-- /ko -->
+                    <!--ko if: currentPageIndex() && !isProgressActive()-->
+                    <span id="pageIndex" class="navText">
+                        <span data-bind="text: currentPageIndex"></span>/<span data-bind="text: numParentItemPages"></span>
+                    </span>
+                    <!-- /ko -->
+                    <span id="currentPageInfo" data-bind="if: GetCurrentPage">
+                        <span class="icon-status" data-bind="attr: { 'title': GetItemStatusTooltip(GetCurrentPage()) }, css: GetItemStatusCssClass(GetCurrentPage())"></span>
+                        <span class="navText pageTitle">
+                            <span class="text-dev" data-bind="visible: enableDevControls, text: GetCurrentPage().id + ' - '"></span>
+                            <span data-bind="attr: { 'title': GetCurrentPage().title }, text: GetCurrentPage().title"></span>
+                        </span>
+                    </span>
+                </div>
+                <div class="col-xs-1 text-right no-horizontal-space">
+                    <button id="btnExit" class="navBtn" data-bind="attr: { 'title': lang().dict.exit }, click: ClosePlayer"><span class="icon-close">&times;</span></button>
+                </div>
+            </div>
+        </div>
+        <div id="contentContainer" data-bind="css: { hasAudioText: audioTextEnabled() && audioText() }">
+            <!-- iframe gets dynamically injected here. -->
+            <div id="audioTextContainer" class="container">
+                <div class="row" style="height: 100%;">
+                    <div class="col-md-12" style="height: 100%; padding: 5px;">
+                        <div class="well text-center no-vertical-space">
+                            <div class="pull-right">
+                                <span id="transcriptBtn" class="fas fa-file-alt" data-bind="attr: { 'title': lang().dict.transcript }, click: ShowTranscript"></span>
+                            </div>
+                            <span data-bind="text: audioText"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="contentLoader" style="display: none;" data-bind="visible: isLoadingPage">
+                <div id="contentLoaderInner">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+            <div id="toasts"></div>
+            <div id="devToolbar"></div>
+            <span id="devIcon" class="fas fa-cogs" style="display: none;" data-bind="visible: config.developerMode, click: ToggleDevControls"></span>
+            <div id="content-mask" style="display:none;"></div>
+        </div>
+        <div id="controlbarBtm" class="container-fluid no-select">
+            <div class="row">
+                <div class="col-xs-3 no-horizontal-space">
+                    <!--ko if: config.logoPath-->
+                    <img class="customLogo" data-bind="attr: {'src': config.logoPath, 'title': lang().dict.returnToHomePage }, click: LoadDefaultPage" />
+                    <!--/ko-->
+                </div>
+                <div class="col-xs-6 text-center no-horizontal-space">
+                    <button class="navBtn glyphicon glyphicon-chevron-left" data-bind="attr: { 'title': PreviousPageTooltip() }, enable: canPlayPreviousPage, click: PlayPreviousPage"></button><button class="navBtn glyphicon glyphicon-backward" data-bind="visible: config.buttons.sections, enable: canPlayPreviousSection, click: LoadPreviousSection"></button>
+                    <!--ko if: isPlaybackVisible-->
+                    <button class="navBtn glyphicon glyphicon-play" style="display: none" data-bind="attr: { 'title': lang().dict.play }, enable: canPlay, visible: !isPlaying(), click: Play"></button>
+                    <button class="navBtn glyphicon glyphicon-pause" data-bind="attr: { 'title': lang().dict.pause }, enable: canPause, visible: isPlaying, click: Pause"></button>
+                    <!--/ko-->
+                    <!--ko if: !isPlaybackVisible()-->
+                    <button class="navBtn glyphicon glyphicon-pause" style="visibility: hidden;"></button>
+                    <!--/ko-->
+                    <button class="navBtn glyphicon glyphicon-forward" data-bind="visible: config.buttons.sections, enable: canPlayNextSection, click: LoadNextSection"></button><button class="navBtn glyphicon glyphicon-chevron-right" data-bind="attr: { 'title': NextPageTooltip() }, enable: canPlayNextPage, css: { 'nextCompleted': isNextVisualIndicator}, click: PlayNextPage"></button>
+                </div>
+                <div class="col-xs-3 text-right no-horizontal-space">
+                    <button class="navBtn glyphicon glyphicon-repeat" data-bind="attr: { 'title': lang().dict.reload }, enable: canReload, click: Reload"></button><button id="btnVolume" class="navBtn glyphicon glyphicon-volume-up" data-bind="visible: canAdjustVolume, css: GetVolumeCss(), click: ToggleMute"></button><button id="btnOptions" class="navBtn glyphicon glyphicon-option-vertical" data-bind="click: ShowOptionsMenu, attr: { 'title': lang().dict.options }"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="volumeControl" data-bind="css: { 'muted': isMuted }">
+    <input type="text" id="volumeSlider" class="slider form-control" value="" data-slider-orientation="vertical" />
+</div>
+<div id="c-mask" class="cmenu-mask"></div>
+<nav id="optionsMenu" class="cmenu cmenu-slide-right">
+    <div class="cmenu-close" id="optionsClose" data-bind="click: CloseOptionsMenu">
+        <span class="glyphicon glyphicon-chevron-right pull-right"></span>
+        <span data-bind="text: lang().dict.options"></span>
+    </div>
+    <div class="cmenu-items">
+        <div class="cmenu-item" data-bind="visible: config.buttons.audioText, click: ToggleAudioText"><span data-bind="text: lang().dict.audioText"></span><span class="glyphicon glyphicon-ok pull-right" data-bind="visible: audioTextEnabled"></span></div>
+        <div class="cmenu-item" data-bind="visible: config.buttons.language, click: ShowLanguage"><span data-bind="text: lang().dict.organizationOption"></span></div>
+        <div class="cmenu-item" data-bind="visible: config.buttons.glossary, click: ShowGlossary"><span data-bind="text: lang().dict.glossary"></span></div>
+        <div class="cmenu-item" data-bind="visible: config.buttons.reference, click: ShowReferences"><span data-bind="text: lang().dict.references"></span></div>
+        <div class="cmenu-item" data-bind="visible: canComment, click: ShowComments"><span data-bind="text: lang().dict.comments"></span></div>
+        <div class="cmenu-item" data-bind="visible: canDesignLaunchOptions, click: ShowLaunchOptionsDesigner"><span data-bind="">Launch Options Designer</span></div>
+        <div class="cmenu-item" data-bind="click: ShowHelp"><span data-bind="text: lang().dict.help"></span></div>
+        <div class="cmenu-item" data-toggle="modal" data-target="#about-modal">
+            <span data-bind="text: lang().dict.about"></span>
+        </div>
+    </div>
+</nav><!-- /cmenu slide-right -->
+
+<div class="modal modal-wide fade" id="help-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" data-bind="text: lang().dict.help"></h4>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <img style="max-width: calc(100vw - 80px); max-height: calc(100vh - 150px);" src="images/PlayerHelpOverlay.png" />
+            </div>            
+        </div>
+    </div>
+</div>
+
+<div id="appLoader">
+    <div id="pelesysLogo" class="text-center">
+        <img src="images/plogowhite.png" />
+    </div>
+    <div id="appLoadingProgress">
+        <div class="spinner"></div>
+    </div>
+</div>
+
+<div class="modal fade" id="about-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content about-modal-pf">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h3 class="text-uppercase"><strong data-bind="click: DevClick">Galaxy</strong> CBT Player</h3>
+                <div class="product-versions-pf">
+                    <ul class="list-unstyled">
+                        <li><strong data-bind="text: lang().dict.version"></strong> <span data-bind="text: GetVersion()" /></li>
+                    </ul>
+                </div>
+                <div class="trademark-pf">
+                    <span data-bind="text: lang().dict.trademark"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <img src="images/plogowhite.png" style="width: 100px;" data-bind="click: GClick" />
+            </div>
+        </div>
+    </div>
+</div>

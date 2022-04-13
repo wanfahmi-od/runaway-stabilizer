@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<page>
+  <metadata>
+    <language>EN</language>
+    <description>
+    </description>
+    <keywords>
+    </keywords>
+    <date>2013-01-07</date>
+    <duration>
+    </duration>
+    <version>1.0</version>
+    <generator>
+    </generator>
+    <package_id>
+    </package_id>
+    <rights>Pelesys Learning Systems Inc.</rights>
+  </metadata>
+  <id>rs01p08</id>
+  <title>Runaway Stabilizer Non-Normal Checklist - 08</title>
+  <type>no_test</type>
+  <init_required>false</init_required>
+  <unload_required>false</unload_required>
+  <graphics_location>rs01p08.html</graphics_location>
+  <completion>last_section</completion>
+  <data>
+  </data>
+  <sections>
+    <section>
+      <id>s1</id>
+      <audio_location>rs01p08.mp3</audio_location>
+      <audio_text>If the runaway continues after the STAB TRIM cutout switches are moved to CUTOUT, grasp and hold the stabilizer trim wheel to stop stabilizer motion.</audio_text>
+      <instruction>
+      </instruction>
+      <completion>both</completion>
+      <advance>auto</advance>
+    </section>
+	<section>
+      <id>s2</id>
+      <audio_location>rs01p08a.mp3</audio_location>
+      <audio_text>In this video, the First Officer effectively stops stabilizer motion by grasping the opposite stabilizer trim wheel.</audio_text>
+      <instruction>
+      </instruction>
+      <completion>both</completion>
+      <advance>auto</advance>
+    </section>
+  </sections>
+</page>

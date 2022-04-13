@@ -1,0 +1,60 @@
+﻿<div class="devToolbar small">
+    <div class="inner">
+        <div class="container-fluid form-inline">
+            <!-- ko if: currentSection() -->
+            <div class="input-group input-group-sm">
+                <span class="input-group-addon">
+                    <strong>Section:</strong>
+                    <span data-bind="text: currentSection().id"></span>
+                    <span>
+                        (<span data-bind="text: pageModel.sections.indexOf(currentSection()) + 1"></span>/<span data-bind="text: pageModel.sections.length"></span>)
+                    </span>
+                </span>
+                <div class="input-group-btn">
+                    <span class="btn btn-sm btn-default" data-bind="click: LoadPreviousSection"><span class="glyphicon glyphicon-chevron-left"></span></span>
+                    <span class="btn btn-sm btn-default" data-bind="click: LoadNextSection"><span class="glyphicon glyphicon-chevron-right"></span></span>
+                </div>
+            </div>
+            <div class="input-group input-group-sm">
+                <!-- ko if: currentSection().audioLocation -->
+                <span class="input-group-addon">
+                    <strong>Audio:</strong>
+                    <span data-bind="text: currentSection().audioLocation"></span>
+                </span>
+                <!-- /ko -->
+                <span class="input-group-addon" style="padding: 0;">
+
+                    <select class="form-control input-sm" style="display: inline-block;" data-bind="options: audioManifest, optionsText: 'id', value: devSelectedAudio, optionsCaption: 'Audio...'"></select>
+                </span>
+                <div class="input-group-btn">
+                    <span class="btn btn-sm btn-default" data-bind="click: TestPlayAudio"><span class="glyphicon glyphicon-play"></span></span>
+                    <span class="btn btn-sm btn-default" data-bind="click: TestStopAudio"><span class="glyphicon glyphicon-stop"></span></span>
+                </div>
+            </div>
+
+            <!-- /ko -->
+            <span class="btn-group">
+                <span class="btn btn-sm btn-default" data-bind="click: player._DevToggleFastAdvance">Fast Adv. <span class="glyphicon" data-bind="css: { 'glyphicon-check': player.config.fastAdvance, 'glyphicon-unchecked': !player.config.fastAdvance() }"></span></span>
+                <span class="btn btn-sm btn-default" data-bind="text: player.config._playSpeed() + 'X', click: player._DevTogglePlaySpeed"></span>
+                <span class="btn btn-sm btn-default" data-bind="click: player._DevToggleAutoPlay">Autoplay <span class="glyphicon" data-bind="css: { 'glyphicon-check': player.config._autoPlay, 'glyphicon-unchecked': !player.config._autoPlay() }"></span></span>
+                <span class="btn btn-sm btn-default" data-bind="text: 'Graphics Mode: ' + player.config._canvasGraphicsQuality(), click: function () { player._DevToggleGraphicsQuality(); SetQuality(player.config._canvasGraphicsQuality()); }"></span>
+            </span>
+            <div class="dropdown" style="display: inline-block;">
+                <span class="btn btn-sm btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    More <span class="caret"></span>
+                </span>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#" data-bind="click: player.ShowDeveloperReport"><span class="glyphicon glyphicon-file"></span> Developer Report</a></li>
+                    <!-- ko if: player.lmsAPIController.type === 'local' -->
+                    <li role="separator" class="divider"></li>
+                    <li class="dropdown-header">Local Storage</li>
+                    <li><a href="#" data-bind="click: TestClearLocalStorage"><span class="glyphicon glyphicon-trash"></span> Clear data for this CBT</a></li>
+                    <li><a href="#" data-bind="click: TestClearAllLocalStorage"><span class="glyphicon glyphicon-trash"></span> Clear all data</a></li>
+                    <!-- /ko -->
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#" data-bind="click: player.ShowDeveloperHelp"><span class="glyphicon glyphicon-question-sign"></span> Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

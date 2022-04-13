@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="../../../lib/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="../../../lib/font-awesome/font-awesome.min.css" rel="stylesheet" />
+    <script src="../../../lib/jquery/jquery-3.1.1.min.js"></script>
+    <script src="../../../lib/bootstrap/bootstrap.min.js"></script>
+    <script src="../../../lib/knockout/knockout.min.js"></script>
+
+    <script src="../../../js/cbtplayer.utils.min.js"></script>
+    <script src="../../../js/cbtplayer.models.min.js"></script>
+
+    <link href="menu_template.css" rel="stylesheet" />
+    <script src="../../js/common.js"></script>
+    <script src="menu_template.js"></script>
+</head>
+<body>
+    <!-- Basic CBT pages must define a "cbtcontainer" container. -->
+    <div id="cbtcontainer">
+        <div class="scroll">
+            <div class="container-fluid banner">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="titleContainer">
+                            <div class="pageTitle" data-bind="text: org.title"></div>
+                        </div>
+                    </div>
+					<div class="typeofcourse"><strong>B737-8MAX</strong> </div>
+                </div>
+				
+				<div class="poweredby"></div>
+				
+			</div>
+            <div id="topics" class="container">
+                <div class="row" data-bind="foreach: topics">
+                    <div class="topic" data-bind="css: $root.GetTopicCssClass($data)">
+                        <div class="col-md-8"><div class="title" data-bind="text: title, click: $parent.LoadTopic"></div></div>
+                        <div class="col-md-4">
+                            <div class="c100 small green" data-bind="css: 'p' + progress()">
+                                <span><span data-bind="text: progress"></span>%</span>
+                                <div class="slice">
+                                    <div class="bar"></div>
+                                    <div class="fill"></div>
+                                </div>
+                            </div>
+                            <div class="pages">Completed <span data-bind="text: completedItemsCount"></span> of <span data-bind="text: items().length"></span></div>
+                            <div class="play">
+                                <span data-bind="click: $parent.LoadTopic"><span data-bind="if: !visited()">Start <span class="glyphicon glyphicon-play"></span></span><span data-bind="if: visited() && !completed()">Continue <span class="glyphicon glyphicon-play"></span></span><span data-bind="click: $parent.LoadTopic"><font color=green><span data-bind="if: completed">Completed <span class="glyphicon glyphicon-play"></span></font></span></span></span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button id="scrollUpBtn" class="navBtn glyphicon glyphicon-chevron-up" data-bind="visible: IsScrollUpBtnVisible, click: ScrollUpBtnClick"></button>
+        <button id="scrollDownBtn" class="navBtn glyphicon glyphicon-chevron-down" data-bind="visible: IsScrollDownBtnVisible, click: ScrollDownBtnClick"></button>
+    </div>
+</body>
+</html>

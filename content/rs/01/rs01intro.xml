@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<page>
+  <metadata>
+    <language>EN</language>
+    <description>
+    </description>
+    <keywords>
+    </keywords>
+    <date>2013-01-07</date>
+    <duration>
+    </duration>
+    <version>1.0</version>
+    <generator>
+    </generator>
+    <package_id>
+    </package_id>
+    <rights>Pelesys Learning Systems Inc.</rights>
+  </metadata>
+  <id>rs01intro</id>
+  <title>Introduction</title>
+  <type>no_test</type>
+  <init_required>false</init_required>
+  <unload_required>false</unload_required>
+  <graphics_location>rs01intro.html</graphics_location>
+  <completion>last_section</completion>
+  <data>
+  </data>
+  <sections>
+    <section>
+      <id>s1</id>
+      <audio_location>rs01intro.mp3</audio_location>
+      <audio_text>Upon completion of this lesson, you will be able to recognize a Runaway Stabilizer and exhibit basic systems knowledge associated with critical steps of the Runaway Stabilizer Non-Normal Checklist.</audio_text>
+      <instruction>
+      </instruction>
+      <completion>both</completion>
+      <advance>auto</advance>
+    </section>
+  </sections>
+</page>

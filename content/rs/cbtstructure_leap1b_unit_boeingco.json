@@ -1,0 +1,287 @@
+﻿{
+	"__playerversion": "1.7.5.22153",
+	"id": "content/rs/cbtstructure_leap1b_unit_boeingco.xml",
+	"defaultOrganizationId": "RS",
+	"organizations": [
+		{
+			"language": "EN",
+			"contentPath": "content/rs/",
+			"date": "",
+			"expiryDate": "",
+			"fullItems": [
+				{
+					"isVisible": true,
+					"id": "home",
+					"title": "Home",
+					"type": "htmlhome",
+					"location": "menu_boeing/menu_template.html",
+					"folderPath": "content/rs/menu_boeing/"
+				},
+				{
+					"isVisible": true,
+					"fullItems": [
+						{
+							"isVisible": true,
+							"sections": [
+								{
+									"id": "s1",
+									"audioLocation": "rs01intro.mp3",
+									"audioText": "Upon completion of this lesson, you will be able to recognize a Runaway Stabilizer and exhibit basic systems knowledge associated with critical steps of the Runaway Stabilizer Non-Normal Checklist.",
+									"completion": "both",
+									"advance": "auto"
+								}
+							],
+							"id": "rs01intro",
+							"title": "Introduction",
+							"type": "canvas",
+							"location": "01/rs01intro.xml",
+							"graphicsLocation": "rs01intro.html",
+							"data": false,
+							"parentId": "01",
+							"folderPath": "content/rs/01/"
+						},
+						{
+							"isVisible": true,
+							"sections": [
+								{
+									"id": "s1",
+									"audioLocation": "rs01p01.mp3",
+									"audioText": "A runaway stabilizer condition is defined as uncommanded stabilizer movement that occurs continuously or in a manner not appropriate for flight conditions.",
+									"completion": "both",
+									"advance": "auto"
+								},
+								{
+									"id": "s2",
+									"audioLocation": "rs01p01a.mp3",
+									"audioText": "Please refer to the Runaway Stabilizer Non-Normal Checklist or to your company specific procedures.",
+									"completion": "both",
+									"advance": "auto"
+								}
+							],
+							"id": "rs01p01",
+							"title": "Runaway Stabilizer Non-Normal Checklist - 01",
+							"type": "canvas",
+							"location": "01/rs01p01.xml",
+							"graphicsLocation": "rs01p01.html",
+							"data": false,
+							"parentId": "01",
+							"folderPath": "content/rs/01/"
+						},
+						{
+							"isVisible": true,
+							"sections": [
+								{
+									"id": "s1",
+									"audioLocation": "rs01p02.mp3",
+									"audioText": "During a runaway stabilizer condition, the control column is held firmly to prevent changes in pitch attitude that may occur as a result of autopilot disengagement.",
+									"completion": "both",
+									"advance": "auto"
+								}
+							],
+							"id": "rs01p02",
+							"title": "Runaway Stabilizer Non-Normal Checklist - 02",
+							"type": "canvas",
+							"location": "01/rs01p02.xml",
+							"graphicsLocation": "rs01p02.html",
+							"data": false,
+							"parentId": "01",
+							"folderPath": "content/rs/01/"
+						},
+						{
+							"isVisible": true,
+							"sections": [
+								{
+									"id": "s1",
+									"audioLocation": "rs01p03.mp3",
+									"audioText": "Disengage the autopilot.",
+									"completion": "both",
+									"advance": "auto"
+								}
+							],
+							"id": "rs01p03",
+							"title": "Runaway Stabilizer Non-Normal Checklist - 03",
+							"type": "canvas",
+							"location": "01/rs01p03.xml",
+							"graphicsLocation": "rs01p03.html",
+							"data": false,
+							"parentId": "01",
+							"folderPath": "content/rs/01/"
+						},
+						{
+							"isVisible": true,
+							"sections": [
+								{
+									"id": "s1",
+									"audioLocation": "rs01p04.mp3",
+									"audioText": "After the autopilot is disengaged, ensure that the autothrottle is also disengaged.",
+									"completion": "both",
+									"advance": "auto"
+								},
+								{
+									"id": "s2",
+									"audioLocation": "rs01p04a.mp3",
+									"audioText": "Control thrust manually so that airspeed remains within the range appropriate for the phase of flight.",
+									"completion": "both",
+									"advance": "auto"
+								},
+								{
+									"id": "s3",
+									"audioLocation": "rs01p04b.mp3",
+									"audioText": "Do not re-engage the autopilot or autothrottle.",
+									"completion": "both",
+									"advance": "auto"
+								}
+							],
+							"id": "rs01p04",
+							"title": "Runaway Stabilizer Non-Normal Checklist - 04",
+							"type": "canvas",
+							"location": "01/rs01p04.xml",
+							"graphicsLocation": "rs01p04.html",
+							"data": false,
+							"parentId": "01",
+							"folderPath": "content/rs/01/"
+						},
+						{
+							"isVisible": true,
+							"sections": [
+								{
+									"id": "s1",
+									"audioLocation": "rs01p05.mp3",
+									"audioText": "Control airplane pitch attitude using the control column. If uncommanded trim motion continues, it may stop when the control column is displaced in the opposite direction and the control column actuated stabilizer trim cutout switches activate.",
+									"completion": "both",
+									"advance": "auto"
+								}
+							],
+							"id": "rs01p05",
+							"title": "Runaway Stabilizer Non-Normal Checklist - 05",
+							"type": "canvas",
+							"location": "01/rs01p05.xml",
+							"graphicsLocation": "rs01p05.html",
+							"data": false,
+							"parentId": "01",
+							"folderPath": "content/rs/01/"
+						},
+						{
+							"isVisible": true,
+							"sections": [
+								{
+									"id": "s1",
+									"audioLocation": "rs01p06.mp3",
+									"audioText": "Use main electric stabilizer trim to reduce control column forces.",
+									"completion": "both",
+									"advance": "auto"
+								}
+							],
+							"id": "rs01p06",
+							"title": "Runaway Stabilizer Non-Normal Checklist - 06",
+							"type": "canvas",
+							"location": "01/rs01p06.xml",
+							"graphicsLocation": "rs01p06.html",
+							"data": false,
+							"parentId": "01",
+							"folderPath": "content/rs/01/"
+						},
+						{
+							"isVisible": true,
+							"sections": [
+								{
+									"id": "s1",
+									"audioLocation": "rs01p07.mp3",
+									"audioText": "If uncommanded stabilizer trim motion continues after the autopilot is disengaged, move both STAB TRIM cutout switches to the CUTOUT position.",
+									"completion": "both",
+									"advance": "auto"
+								},
+								{
+									"id": "s2",
+									"audioText": "---",
+									"completion": "vision",
+									"advance": "auto"
+								}
+							],
+							"id": "rs01p07",
+							"title": "Runaway Stabilizer Non-Normal Checklist - 07",
+							"type": "canvas",
+							"location": "01/rs01p07.xml",
+							"graphicsLocation": "rs01p07.html",
+							"data": false,
+							"parentId": "01",
+							"folderPath": "content/rs/01/"
+						},
+						{
+							"isVisible": true,
+							"sections": [
+								{
+									"id": "s1",
+									"audioLocation": "rs01p08.mp3",
+									"audioText": "If the runaway continues after the STAB TRIM cutout switches are moved to CUTOUT, grasp and hold the stabilizer trim wheel to stop stabilizer motion.",
+									"completion": "both",
+									"advance": "auto"
+								},
+								{
+									"id": "s2",
+									"audioLocation": "rs01p08a.mp3",
+									"audioText": "In this video, the First Officer effectively stops stabilizer motion by grasping the opposite stabilizer trim wheel.",
+									"completion": "both",
+									"advance": "auto"
+								}
+							],
+							"id": "rs01p08",
+							"title": "Runaway Stabilizer Non-Normal Checklist - 08",
+							"type": "canvas",
+							"location": "01/rs01p08.xml",
+							"graphicsLocation": "rs01p08.html",
+							"data": false,
+							"parentId": "01",
+							"folderPath": "content/rs/01/"
+						},
+						{
+							"isVisible": true,
+							"sections": [
+								{
+									"id": "s1",
+									"audioLocation": "rs01p09.mp3",
+									"audioText": "Manual stabilizer trim should be used as needed to keep the airplane in-trim. A two-pilot effort may be used to correct an out of trim condition and will not cause a cable or system failure. Reducing airloads on the stabilizer reduces the effort needed to manually trim. Reducing airspeed reduces airloads on the stabilizer. Depending on the out of trim condition and force required to move the stabilizer trim wheel, flight crew coordination is important.",
+									"completion": "both",
+									"advance": "auto"
+								}
+							],
+							"id": "rs01p09",
+							"title": "Runaway Stabilizer Non-Normal Checklist - 09",
+							"type": "canvas",
+							"location": "01/rs01p09.xml",
+							"graphicsLocation": "rs01p09.html",
+							"data": false,
+							"parentId": "01",
+							"folderPath": "content/rs/01/"
+						},
+						{
+							"isVisible": true,
+							"sections": [
+								{
+									"id": "s1",
+									"audioText": "---",
+									"completion": "vision",
+									"advance": "auto"
+								}
+							],
+							"id": "rs01p09_01",
+							"title": "Overview and Critical Steps – Summary",
+							"type": "canvas",
+							"location": "01/rs01p09_01.xml",
+							"graphicsLocation": "rs01p09_01.html",
+							"data": false,
+							"parentId": "01",
+							"folderPath": "content/rs/01/"
+						}
+					],
+					"id": "01",
+					"title": "Overview and Critical Steps",
+					"type": "topic"
+				}
+			],
+			"id": "RS",
+			"rights": "Pelesys Learning Systems Inc.",
+			"title": "Runaway Stabilizer"
+		}
+	]
+}

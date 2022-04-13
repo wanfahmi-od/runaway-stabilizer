@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0">
+    <link href="lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="css/launch.css" rel="stylesheet" />
+    <script type="text/javascript" src="lib/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="lib/moment/moment.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/bootbox.min.js"></script>
+    <script type="text/javascript" src="js/Utilities.js"></script>
+    <script type="text/javascript" src="js/models/LearningSessionModel.js"></script>
+    <script type="text/javascript" src="js/RuntimeController.js"></script>
+    <script type="text/javascript" src="js/scorm/SCO_APIBase.js"></script>
+    <script type="text/javascript" src="js/scorm/SCO_API.js"></script>
+    <script type="text/javascript" src="js/scorm/SCO_API_1484_11.js"></script>
+    <script type="text/javascript" src="js/scorm/APIRuntimeBase.js"></script>
+    <script type="text/javascript" src="js/scorm/SCORM2004Runtime.js"></script>
+    <script type="text/javascript" src="js/scorm/SCORM12Runtime.js"></script>
+    <script src="../content/js/common_SCORMAdapter.js"></script>
+    <script>
+
+        var runtimeController;
+
+        function initSCORMAdapter(options) {
+
+            options.onCommit = function (dataModel) {
+                if (dataModel.lessonStatus === "Completed" || dataModel.lessonStatus === "Passed" || dataModel.lessonStatus === "Failed") {
+                    pageControllerAPI.setPageCompletion(true);
+                }
+            };
+
+            pageControllerAPI.onBeforeInit();
+
+            //create the runtime
+            runtimeController = new RuntimeController(options);
+            runtimeController.Init();
+            
+            pageControllerAPI.pageLoaded();
+        };
+
+    </script>
+</head>
+<body>
+    <div id="contentContainer">
+        <iframe id="contentFrame" scrolling="yes" src=""></iframe>
+        <div id="contentoverlay" style="display: none;"></div>
+    </div>
+    <div id="savingoverlay">
+        <div id="savingMessage">
+            <strong>Saving learning progress</strong><br /><br />
+            Don't go away. This may take a couple seconds.
+        </div>
+    </div>
+    <div id="debugContainer"></div>
+</body>
+</html>

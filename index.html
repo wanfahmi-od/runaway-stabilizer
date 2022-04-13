@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>CBT Player</title>
+    <link href="lib/font-awesome/font-awesome.min.css" rel="stylesheet" />
+    <link href="lib/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/bootstrap/bootstrap-slider.min.css" rel="stylesheet" />
+    <link href="lib/datatables/datatables.min.css" rel="stylesheet" />
+    <link href="css/cbtplayer.min.css" rel="stylesheet" />
+    <!-- Libs -->
+    <script type="text/javascript" src="lib/jquery/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="lib/lodash/lodash.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/bootbox.min.js"></script>
+    <script type="text/javascript" src="lib/bootstrap/bootstrap-slider.min.js"></script>
+    <script type="text/javascript" src="lib/datatables/datatables.min.js"></script>
+    <script type="text/javascript" src="lib/knockout/knockout.min.js"></script>
+    <script type="text/javascript" src="lib/createjs/soundjs-NEXT.min.js"></script>
+    <script type="text/javascript" src="lib/createjs/preloadjs-NEXT.min.js"></script>
+    <script type="text/javascript" src="lib/mousetrap/mousetrap.min.js"></script>
+
+    <script type="text/javascript" src="js/cbtplayer.utils.min.js"></script>
+    <script type="text/javascript" src="js/cbtplayer.models.min.js"></script>
+    <script type="text/javascript" src="js/cbtplayer.min.js"></script>
+    <script type="text/javascript" src="config.js"></script>
+    <script src="lib/require/require.js"></script>
+</head>
+<body ontouchstart="" data-bind="css: { 'developerMode': enableDevControls }">
+    <!--ko component: { name: ui, params: { model: $root } } --><!--/ko-->
+
+    <div class="modal fade" id="video-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" data-bind="style:{ backgroundColor : config.titleBarColor() }">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" data-bind="text: videoProperties().title"></h4>
+                </div>
+                <div class="modal-body">
+                    <video id="video1" data-bind="html: videoProperties().html" autoplay controls></video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="comments-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" data-bind="style:{ backgroundColor : config.titleBarColor() }">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" data-bind="text: lang().dict.comments"></h4>
+                </div>
+                <div class="modal-body">
+                    <textarea id="commentText" class="form-control custom-control" rows="5" style="resize:none" data-bind="textInput: commentText.view"></textarea>
+                    <p class="small" style="margin-top: 10px;"><span data-bind="text: lang().dict.charsRemaining"></span> <span data-bind="text: commentText.maxlength - commentText().length"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-right">
+                        <button class="btn btn-default" data-bind="click: CloseComments, text: lang().dict.cancel"></button>
+                        <button class="btn btn-primary" data-bind="click: SendComments, text: lang().dict.send"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="language-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" data-bind="style:{ backgroundColor : config.titleBarColor() }">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" data-bind="text: lang().dict.organizationOption"></h4>
+                </div>
+                <div class="modal-body text-center">
+                    <div class="container-fluid">
+                        <h1><small data-bind="text: lang().dict.selectOrganization"></small></h1>
+                        <div class="col-md-10 col-md-offset-1">
+                            <ul class="nav nav-pills nav-stacked" data-bind="foreach: organizations">
+                                <li role="presentation" data-bind="css: { 'active': $root.IsOrganizationSelected($data) }">
+                                    <a href="" data-bind="click: $root.SelectOrganization">
+                                        <span class="glyphicon glyphicon-ok pull-right"></span>
+                                        <span data-bind="text: title"></span>
+                                        <!--ko if: description-->
+                                        &nbsp;-&nbsp;<span data-bind="text: description"></span>
+                                        <!--/ko-->
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="container-fluid" style="margin-top: 50px;">
+                        <h1><small data-bind="text: lang().dict.selectUiLang"></small></h1>
+                        <div class="col-md-10 col-md-offset-1">
+                            <ul class="nav nav-pills nav-stacked" data-bind="foreach: langs">
+                                <li role="presentation" data-bind="css: { 'active': $root.IsUILanguageSelected($data) }">
+                                    <a href="" data-bind="click: $root.SelectUILanguage">
+                                        <span data-bind="text: title"></span>
+                                        <span class="glyphicon glyphicon-ok pull-right"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="glossary-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header" data-bind="style:{ backgroundColor : config.titleBarColor() }">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">
+                        <input id="glossarySearch" class="form-control input-sm" style="width: 200px" type="search" data-bind="textInput: glossarySearchValue, attr: {'placeholder': lang().dict.searchGlossary }">
+                    </h4>
+                </div>
+                <div class="modal-body modal-body-tall">
+                    <table id="glossaryTable" class="table table-striped dataTable" width="100%"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="references-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" data-bind="style:{ backgroundColor : config.titleBarColor() }">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" data-bind="text: lang().dict.references"></h4>
+                </div>
+                <div class="modal-body modal-body-tall">
+                    <div data-bind="foreach: references">
+                        <p>
+                            <a href="" target="_blank" data-bind="text: name, attr: { href: link }"></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="transcript-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" data-bind="style:{ backgroundColor : config.titleBarColor() }">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" data-bind="text: lang().dict.transcript"></h4>
+                </div>
+                <div class="modal-body modal-body-tall">
+                    <!-- ko if: pageController() -->
+                    <div data-bind="html: pageController().transcriptText">
+                    </div>
+                    <!-- /ko -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="devreport-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Developer Report</h4>
+                </div>
+                <div class="modal-body modal-body-tall">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#pageTab" data-toggle="tab">Page</a>
+                                    </li>
+                                    <li>
+                                        <a href="#courseTab" data-toggle="tab">Course</a>
+                                    </li>
+                                    <li>
+                                        <a href="#configTab" data-toggle="tab">Config</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content clearfix">
+                                    <div class="tab-pane active" id="pageTab">
+                                        <!--ko if: currentPage-->
+                                        <h3>Page Data</h3>
+                                        <textarea class="form-control" style="height: 60vh;" data-bind="value: ko.toJSON(currentPage(), null, 3)"></textarea>
+                                        <!--/ko-->
+                                    </div>
+                                    <div class="tab-pane small" id="courseTab">
+                                        <h3></h3>
+                                        <p>Total time: <span data-bind="text: ds.utils.GetTimeInterval(currentOrg().learningTime())"></span></p>
+                                        <table id="courseTable" class="table table-striped dataTable" width="100%"></table>
+                                    </div>
+                                    <div class="tab-pane" id="configTab">
+                                        <h3>Config Data</h3>
+                                        <textarea class="form-control" style="height: 60vh;" data-bind="value: ko.toJSON(config, null, 3)"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ko if: enableDevControls -->
+    <div class="modal fade" id="developerhelp-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Developer Help</h4>
+                </div>
+                <div class="modal-body modal-body-tall">
+
+
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#keyboardShortcutsTab" data-toggle="tab">Keyboard Shortcuts</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content clearfix">
+                        <div class="tab-pane active" id="keyboardShortcutsTab">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>Navigation</h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            Load previous page
+                                            <span class="label label-default pull-right">Ctrl + <span class="glyphicon glyphicon-arrow-left"></span></span>
+                                        </div>
+                                        <div>
+                                            Load next page
+                                            <span class="label label-default pull-right">Ctrl + <span class="glyphicon glyphicon-arrow-right"></span></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            Load home page
+                                            <span class="label label-default pull-right">H</span>
+                                        </div>
+                                        <div>
+                                            Open Course Menu
+                                            <span class="label label-default pull-right">Ctrl + M</span><span class="label label-default pull-right">`</span>
+                                        </div>
+                                        <div>
+                                            Open Options Menu
+                                            <span class="label label-default pull-right">O</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>Content Page</h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            Toggle play/pause
+                                            <span class="label label-default pull-right">Space</span>
+                                        </div>
+                                        <div>
+                                            Reload page
+                                            <span class="label label-default pull-right">R</span>
+                                        </div>
+                                        <div>
+                                            Toggle mute/unmute
+                                            <span class="label label-default pull-right">M</span>
+                                        </div>
+                                        <div>
+                                            Toggle audio text on/off
+                                            <span class="label label-default pull-right">C</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            Skip to previous section
+                                            <span class="label label-default pull-right">Alt + <span class="glyphicon glyphicon-arrow-left"></span></span>
+                                        </div>
+                                        <div>
+                                            Skip to next section
+                                            <span class="label label-default pull-right">Alt + <span class="glyphicon glyphicon-arrow-right"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h4>Course Menu</h4>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            Focus on search input
+                                            <span class="label label-default pull-right">Ctrl + M</span><span class="label label-default pull-right">`</span>
+                                        </div>
+                                        <div>
+                                            Select next item
+                                            <span class="label label-default pull-right"><span class="glyphicon glyphicon-arrow-down"></span></span>
+                                        </div>
+                                        <div>
+                                            Select previous item
+                                            <span class="label label-default pull-right"><span class="glyphicon glyphicon-arrow-up"></span></span>
+                                        </div>
+                                        <div>
+                                            Select first item
+                                            <span class="label label-default pull-right">Page Up</span>
+                                        </div>
+                                        <div>
+                                            Select last item
+                                            <span class="label label-default pull-right">Page Down</span>
+                                        </div>
+                                        <div>
+                                            Load selected page
+                                            <span class="label label-default pull-right">Enter</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>
+                                            Expand/Collapse selected topic
+                                            <span class="label label-default pull-right">Enter</span>
+                                        </div>
+                                        <div>
+                                            Expand selected topic
+                                            <span class="label label-default pull-right"><span class="glyphicon glyphicon-arrow-right"></span></span>
+                                        </div>
+                                        <div>
+                                            Collapse selected item to parent topic
+                                            <span class="label label-default pull-right"><span class="glyphicon glyphicon-arrow-left"></span></span>
+                                        </div>
+                                        <div>
+                                            Select first item in selected topic
+                                            <span class="label label-default pull-right">Ctrl + <span class="glyphicon glyphicon-arrow-up"></span></span>
+                                        </div>
+                                        <div>
+                                            Select last item in selected topic
+                                            <span class="label label-default pull-right">Ctrl + <span class="glyphicon glyphicon-arrow-down"></span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /ko -->
+
+    <div class="modal fade" id="launchoptions-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Launch Options Designer</h4>
+                </div>
+                <div class="modal-body modal-body-tall">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#launchOptionsSettingsTab" data-toggle="tab">Settings</a>
+                        </li>
+                        <li>
+                            <a href="#launchOptionsMenuTab" data-toggle="tab">Menu</a>
+                        </li>
+                        <li>
+                            <a href="#launchOptionsDataTab" data-toggle="tab">Launch Data</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content tab-content-tall clearfix">
+                        <div class="tab-pane active" id="launchOptionsSettingsTab">
+                            <h4>Option Buttons</h4>
+                            <div><input type="checkbox" data-bind="checked: config.buttons.language" /> <span>Options &gt; Language and Course Organization</span></div>
+                            <div><input type="checkbox" data-bind="checked: config.buttons.glossary" /> <span>Options &gt; Glossary</span></div>
+                            <div><input type="checkbox" data-bind="checked: config.buttons.reference" /> <span>Options &gt; References</span></div>
+                            <div><input type="checkbox" data-bind="checked: config.buttons.comments" /> <span>Options &gt; Comments</span></div>
+                            <div><input type="checkbox" data-bind="checked: config.buttons.audioText" /> <span>Options &gt; Audio Text</span></div>
+                            <div><input type="checkbox" data-bind="checked: config.buttons.audio" /> <span>Volume controls</span></div>
+                            <h4>Navigation</h4>
+                            <div><input type="checkbox" data-bind="checked: config.fastAdvance" /> <span>Fast Advance (Choice Navigation)</span></div>
+                            <div><input type="checkbox" data-bind="checked: config.buttons.sections" /> <span>Skip section controls</span></div>
+                            <h4>Progress</h4>
+                            <div><input type="checkbox" data-bind="checked: config.buttons.progress" /> <span>Progress controls</span></div>
+                        </div>
+                        <div class="tab-pane" id="launchOptionsMenuTab">
+                            <h4>Menu Items</h4>
+                            <p>Toggle the visibility of menu items. Selecting topics will hide all items under it.</p>
+                            <!-- ko template: { name: 'launchOptionsRecursiveNavTemplate', data: currentOrg } --><!-- /ko -->
+                            <script type="text/html" id="launchOptionsRecursiveNavTemplate">
+                                <div data-bind="foreach: fullItems">
+                                    <div data-bind="attr: {'data-id': id }, style: $root.GetInlineMenuItemStyle($data)">
+                                        <!-- ko template: { name: 'launchOptionsItemTemplate' } --><!-- /ko -->
+                                    </div>
+                                    <div data-bind="css: { 'disabled': !isVisible() }">
+                                        <!-- ko template: { name: 'launchOptionsRecursiveNavTemplate' } --><!-- /ko -->
+                                    </div>
+                                </div>
+                            </script>
+                            <script type="text/html" id="launchOptionsItemTemplate">
+                                <input type="checkbox" data-bind="checked: isVisible, click: $root.ItemVisibleChange" />
+                                <span class="item-text" data-bind="css: { 'disabled': !isVisible() }">
+                                    <span class="title" data-bind="text: title, css: type"></span>
+                                </span>
+                            </script>
+                        </div>
+                        <div class="tab-pane" id="launchOptionsDataTab">
+                            <h4>Current Launch Options</h4>
+                            <p>
+                                These are the current launch options (core vendor settings) received from the LMS.
+                            </p>
+                            <p>
+                                <textarea class="form-control" readonly="readonly" rows="5" data-bind="text: $root.coreVendorText"></textarea>
+                            </p>
+
+                            <h4>New launch Options</h4>
+                            <p>Copy and paste into the LMS.</p>
+                            <p>
+                                <textarea id="newLaunchOptions" class="form-control" rows="5" readonly="readonly" data-bind="text: $root.newCoreVendorText"></textarea>
+                            </p>
+                            <p>
+                                <button class="btn btn-default btn-sm pull-right" data-bind="click: CopyLaunchOptionsText"><span class="glyphicon glyphicon-copy"></span> Copy</button>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="appClosed" class="container-fluid" style="display: none;" data-bind="visible: isClosed">
+        <div class="row">
+            <div class="col-md-6 col-md-push-3">
+                <h3 data-bind="text: lang().dict.bookmarkSuccess"></h3>
+                <p data-bind="text: lang().dict.safeToClose"></p>
+                <div style="margin-top:100px;">
+                    <img src="images/pclogowhite.png" id="appClosedLogo"/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="noLMSdetected" class="container-fluid" style="display: none;" data-bind="visible: isLMSContentProtection">
+        <div class="row">
+            <div class="col-md-6 col-md-push-3">
+                <div id="protectionMessage">
+                    <h3 data-bind="text: lang().dict.noLmsTitle"></h3>
+                    <P data-bind="text: lang().dict.noLmsProtection" style="margin-top:-10px;"></P>
+                </div>
+                <div style="margin-top:100px;">
+                    <img data-bind="attr: {'src': _ui}" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="hiderendering"></div>
+    <script>
+        require.config({
+            paths: {
+                text: "lib/require/text"
+            }
+        });
+
+        var cbtplayer;
+        $(document).ready(function () {
+            //Entry point for the player.
+            var q = ds.utils.GetQueryParams();
+            if (q && q.devlaunch === "true") {
+                cbtplayer = new CBTPlayer(playerConfigBase);
+            } else {
+                cbtplayer = new CBTPlayer(playerConfig);
+                setTimeout(function () {
+                    cbtplayer.Init();
+                }, 1000);
+            }
+        });
+    </script>
+</body>
+</html>

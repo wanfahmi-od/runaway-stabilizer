@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<organizations>
+  <organization id="RS" location="">
+    <title>Runaway Stabilizer</title>
+	
+    <metadata>
+      <language>EN</language>
+      <description></description>
+      <rights>Pelesys Learning Systems Inc.</rights>
+      <content_folder>EN:content/rs</content_folder>
+    </metadata>
+	
+    <item id="home" location="menu_boeing/menu_template.html" itemtype="htmlhome">
+      <title>Home</title>
+    </item>
+
+    <item id="01" itemtype="topic" completion="" visible="false" nav_button="none">
+      <title>Overview and Critical Steps</title>
+      <item id="rs01intro" location="01/rs01intro.xml" itemtype="canvas" completion="" auto_forward="false" visible="true" nav_button="both">
+        <title>Introduction</title>
+      </item>
+      <item id="rs01p01" location="01/rs01p01.xml" itemtype="canvas" completion="" auto_forward="false" visible="true" nav_button="both">
+        <title>Runaway Stabilizer Non-Normal Checklist - 01</title>
+      </item>
+      <item id="rs01p02" location="01/rs01p02.xml" itemtype="canvas" completion="" auto_forward="false" visible="true" nav_button="both">
+        <title>Runaway Stabilizer Non-Normal Checklist - 02</title>
+      </item>
+      <item id="rs01p03" location="01/rs01p03.xml" itemtype="canvas" completion="" auto_forward="false" visible="true" nav_button="both">
+        <title>Runaway Stabilizer Non-Normal Checklist - 03</title>
+      </item>
+      <item id="rs01p04" location="01/rs01p04.xml" itemtype="canvas" completion="" auto_forward="false" visible="true" nav_button="both">
+        <title>Runaway Stabilizer Non-Normal Checklist - 04</title>
+      </item>
+	  <item id="rs01p05" location="01/rs01p05.xml" itemtype="canvas" completion="" auto_forward="false" visible="true" nav_button="both">
+        <title>Runaway Stabilizer Non-Normal Checklist - 05</title>
+      </item>
+	  <item id="rs01p06" location="01/rs01p06.xml" itemtype="canvas" completion="" auto_forward="false" visible="true" nav_button="both">
+        <title>Runaway Stabilizer Non-Normal Checklist - 06</title>
+      </item>
+	  <item id="rs01p07" location="01/rs01p07.xml" itemtype="canvas" completion="" auto_forward="false" visible="true" nav_button="both">
+        <title>Runaway Stabilizer Non-Normal Checklist - 07</title>
+      </item>
+	  <item id="rs01p08" location="01/rs01p08.xml" itemtype="canvas" completion="" auto_forward="false" visible="true" nav_button="both">
+        <title>Runaway Stabilizer Non-Normal Checklist - 08</title>
+      </item>
+	  <item id="rs01p09" location="01/rs01p09.xml" itemtype="canvas" completion="" auto_forward="false" visible="true" nav_button="both">
+        <title>Runaway Stabilizer Non-Normal Checklist - 09</title>
+      </item>
+	  <item id="rs01p09_01" location="01/rs01p09_01.xml" itemtype="canvas" completion="" auto_forward="false" visible="true" nav_button="both">
+        <title>Overview and Critical Steps – Summary</title>
+      </item>
+    </item>
+    	
+  </organization>
+</organizations>
